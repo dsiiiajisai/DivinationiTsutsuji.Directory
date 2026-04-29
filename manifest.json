@@ -7,12 +7,12 @@
   "theme_color": "#F0EFE9",
   "icons": [
     {
-      "src": "https://i.postimg.cc/Y06x6YG7/Tsutsuji-dir-glow-white-255-200.png",
+      "src": "https://i.postimg.cc/GpNfmPnC/Tsutsuji-glow-white-linear-255-200.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://i.postimg.cc/Y06x6YG7/Tsutsuji-dir-glow-white-255-200.png",
+      "src": "https://i.postimg.cc/GpNfmPnC/Tsutsuji-glow-white-linear-255-200.png",
       "sizes": "512x512",
       "type": "image/png"
     }
