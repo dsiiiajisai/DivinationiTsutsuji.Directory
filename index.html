@@ -99,27 +99,31 @@
     border: none;
   }
 
-  .grid-item:hover, .grid-item:focus {
+  @media (hover: hover) {
+    .grid-item:hover {
+      transform: scale(1.15) translateY(-2px);
+      z-index: 100;
+      position: relative;
+      filter: brightness(1.15);
+    }
+    .tier-upper:hover  { box-shadow: 0 0 12px 4px rgba(224,176,255,0.7), 0 0 28px 8px rgba(224,176,255,0.3); }
+    .tier-middle:hover { box-shadow: 0 0 12px 4px rgba(0,191,255,0.7), 0 0 28px 8px rgba(0,191,255,0.3); }
+    .tier-lower:hover  { box-shadow: 0 0 12px 4px rgba(255,49,49,0.7), 0 0 28px 8px rgba(255,49,49,0.3); }
+  }
+
+  .grid-item:active, .grid-item.pressed {
     transform: scale(1.15) translateY(-2px);
     z-index: 100;
     position: relative;
     filter: brightness(1.15);
-    outline: none;
   }
-  .grid-item.no-hover, .grid-item.no-hover:hover, .grid-item.no-hover:focus {
-    transform: none !important;
-    filter: none !important;
-    box-shadow: revert !important;
-  }
+  .tier-upper:active, .tier-upper.pressed  { box-shadow: 0 0 12px 4px rgba(224,176,255,0.7), 0 0 28px 8px rgba(224,176,255,0.3); }
+  .tier-middle:active, .tier-middle.pressed { box-shadow: 0 0 12px 4px rgba(0,191,255,0.7), 0 0 28px 8px rgba(0,191,255,0.3); }
+  .tier-lower:active, .tier-lower.pressed  { box-shadow: 0 0 12px 4px rgba(255,49,49,0.7), 0 0 28px 8px rgba(255,49,49,0.3); }
 
   .tier-upper  { background: linear-gradient(145deg, #ead0ff, #c990f0); color: #ccff00; box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4); }
-  .tier-upper:hover  { box-shadow: 0 0 12px 4px rgba(224,176,255,0.7), 0 0 28px 8px rgba(224,176,255,0.3); }
-
   .tier-middle { background: linear-gradient(145deg, #33cfff, #009fd4); color: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4); }
-  .tier-middle:hover { box-shadow: 0 0 12px 4px rgba(0,191,255,0.7), 0 0 28px 8px rgba(0,191,255,0.3); }
-
   .tier-lower  { background: linear-gradient(145deg, #ff5555, #d91f1f); color: #000000; box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4); }
-  .tier-lower:hover  { box-shadow: 0 0 12px 4px rgba(255,49,49,0.7), 0 0 28px 8px rgba(255,49,49,0.3); }
 
   /* Legend */
   #legend {
@@ -212,21 +216,17 @@
 
     a.className = 'grid-item tier-' + tier;
 
-    // Fix stuck hover on mobile touch
-    a.addEventListener('touchend', () => {
-      a.blur();
-      setTimeout(() => { a.classList.add('no-hover'); setTimeout(() => a.classList.remove('no-hover'), 300); }, 0);
-    });
+    a.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      a.classList.add('pressed');
+      setTimeout(() => {
+        window.open(base + i, '_blank');
+        a.classList.remove('pressed');
+      }, 350);
+    }, { passive: false });
 
     container.appendChild(a);
   }
-
-  // Reset all items when page becomes visible again (user swipes back)
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-      document.querySelectorAll('.grid-item').forEach(el => el.blur());
-    }
-  });
 </script>
 
 </body>
